@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Model API Demo - docs</title>
+  </head>
+  <body>
+    <h3>Model API Documentation</h3>
+    <p>The model API receives a JSON request containing model features:</p>
+    <ul>
+      <li>UNIQUE_ID -  Identifier for customers </li>
+      <li>DISBURSED_AMOUNT - Amount of Loan disbursed</li>
+      <li>ASSET_COST - Cost of the Asset</li>
+      <li>BRANCH_ID - Branch where the loan was disbursed</li>
+      <li>SUPPLIER_ID - Vehicle Dealer where the loan was disbursed</li>
+      <li>MANUFACTURER_ID -Vehicle manufacturer(Hero, Honda, TVS etc.)</li>
+      <li>CURRENT_PINCODE - Current pincode of the customer</li>
+      <li>EMPLOYMENT_CODE_ID -  Employee of the organization who logged the disbursement</li>
+      <li>PRI_CURRENT_BALANCE - Principal outstanding amount of the active loans at the time of disbursement</li>
+      <li>PRI_SANCTIONED_AMOUNT -  total amount that was sanctioned for all the loans at the time of disbursement</li>
+      <li>PRI_DISBURSED_AMOUNT - total amount that was disbursed for all the loans at the time of disbursement</li>
+    </ul>
+    <p>The model API returns a JSON response containing:</p>
+    <ul>
+      <li>ESTIMATE - median value estimate of the owner-occupied home in $1000’s</li>
+      <li>MISSING_DATA - whether or not the received request was missing any feature data</li>
+    </ul>
+  </body>
+</html>
