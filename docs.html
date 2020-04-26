@@ -1,31 +1,201 @@
-<!DOCTYPE html>
-<html lang="en">
+  <!DOCTYPE html>
+  <html lang="en">
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Model API Demo - docs</title>
-  </head>
-  <body>
-    <h3>Model API Documentation</h3>
-    <p>The model API receives a JSON request containing model features:</p>
-    <ul>
-      <li>UNIQUE_ID -  Identifier for customers </li>
-      <li>DISBURSED_AMOUNT - Amount of Loan disbursed</li>
-      <li>ASSET_COST - Cost of the Asset</li>
-      <li>BRANCH_ID - Branch where the loan was disbursed</li>
-      <li>SUPPLIER_ID - Vehicle Dealer where the loan was disbursed</li>
-      <li>MANUFACTURER_ID -Vehicle manufacturer(Hero, Honda, TVS etc.)</li>
-      <li>CURRENT_PINCODE - Current pincode of the customer</li>
-      <li>EMPLOYMENT_CODE_ID -  Employee of the organization who logged the disbursement</li>
-      <li>PRI_CURRENT_BALANCE - Principal outstanding amount of the active loans at the time of disbursement</li>
-      <li>PRI_SANCTIONED_AMOUNT -  total amount that was sanctioned for all the loans at the time of disbursement</li>
-      <li>PRI_DISBURSED_AMOUNT - total amount that was disbursed for all the loans at the time of disbursement</li>
-    </ul>
-    <p>The model API returns a JSON response containing:</p>
-    <ul>
-      <li>ESTIMATE - median value estimate of the owner-occupied home in $1000’s</li>
-      <li>MISSING_DATA - whether or not the received request was missing any feature data</li>
-    </ul>
-  </body>
-</html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Model API Demo - docs</title>
+    </head>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      
+      input[type=text], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+      }
+      
+      label {
+        padding: 12px 12px 12px 0;
+        display: inline-block;
+      }
+      
+      input[type=submit] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        float: right;
+      }
+      input[type=reset] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        float: left;
+      }
+      
+      input[type=submit]:hover {
+        background-color: #45a049;
+      }
+      
+      .container {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+      }
+      
+      .col-25 {
+        float: left;
+        width: 25%;
+        margin-top: 6px;
+      }
+      
+      .col-75 {
+        float: left;
+        width: 75%;
+        margin-top: 6px;
+      }
+      
+      /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      
+      /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+      @media screen and (max-width: 600px) {
+        .col-25, .col-75, input[type=submit] {
+          width: 100%;
+          margin-top: 0;
+        }
+      }
+      </style>
+      </head>
+      <body>
+      
+      <h1>Loan Defaulter Prediction!</h1>
+      
+      <div class="container">
+        <form action="http://127.0.0.1:8791/predict" method="POST">
+        <div class="row">
+          <div class="col-25">
+            <label >Unique ID:</label>
+          </div>
+          <div class="col-75">
+            <input type="number" name="user_id" placeholder="Enter Unique ID" required/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label>DATE OF BIRTH  :</label>
+          </div>
+          <div class="col-75">
+            <input id="dob" name="dob" type="date" required/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label>DISBURSED AMOUNT:</label>
+          </div>
+          <div class="col-75">
+            <input type="number" name="d_amount" placeholder="Enter Amount Disbersed" required/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label> ASSET COST:</label>
+          
+          </div>
+          <div class="col-75">
+            <input type="number" name="ass_cost" placeholder="Enter Asset Cost" required/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label>BRANCH ID:</label>  
+          </div>
+          <div class="col-75">
+            <input type="number" name="b_id" placeholder="Enter Branch ID" required/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label>SUPPLIER ID:</label>  
+          </div>
+          <div class="col-75">
+            <input type="number" name="s_id" placeholder="Enter Supplier ID" required/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label>MANUFACTURER ID:</label>  
+          </div>
+          <div class="col-75">
+            <input type="number" name="m_id" placeholder="Enter Manufacturer ID" required/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label>CURRENT PINCODE:</label>  
+          </div>
+          <div class="col-75">
+            <input type="number" name="p_code" placeholder="Enter pincode ID" required/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label>EMPLOYEE CODE ID</label>  
+          </div>
+          <div class="col-75">
+            <input type="number" name="e_id" placeholder="Enter employee code " required/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label> PRI CURRENT BALANCE:</label>  
+          </div>
+          <div class="col-75">
+            <input type="number" name="pri_cbal" placeholder="Enter Current Balance" required/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-25">
+            <label> PRI CURRENT BALANCE:</label>  
+          </div>
+          <div class="col-75">
+            <input type="number" name="pri_cbal" placeholder="Enter Current Balance" required/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label> PRI CURRENT BALANCE:</label>  
+          </div>
+          <div class="col-75">
+            <input type="number" name="pri_cbal" placeholder="Enter Current Balance" required/>
+          </div>
+        </div>
+
+        <div class="row">
+          <input type="reset" value="Reset">
+          <input type="submit" value="Submit">
+        </div>
+        
+        </form>
+      </div>
+
+
+    <body>
+
+    </html>
